@@ -1,9 +1,12 @@
 {
-  "name": "prompt-improver",
-  "description": "Intelligent prompt optimization using skill-based architecture. Enriches vague prompts with research-based clarifying questions before Claude Code executes them",
-  "version": "0.4.0",
+  "name": "prompt-improver-r2r",
+  "description": "Intelligent prompt optimization with R2R semantic search integration. Enriches vague prompts using knowledge base search, codebase analysis, and research-based clarifying questions",
+  "version": "0.5.0",
   "author": {
-    "name": "severity1"
+    "name": "R2R-Proger"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "r2r-research-cli": "optional"
+  }
 }

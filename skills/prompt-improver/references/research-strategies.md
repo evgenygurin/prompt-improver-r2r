@@ -39,7 +39,7 @@ Before researching, explicitly identify gaps:
 Use TodoWrite to create a research plan before executing. This ensures systematic investigation.
 
 **Template:**
-```
+```bash
 Research Plan for [Prompt Type]:
 1. [What to research] - [Tool/approach]
 2. [What to research] - [Tool/approach]
@@ -47,7 +47,7 @@ Research Plan for [Prompt Type]:
 ```
 
 **Example:**
-```
+```bash
 Research Plan for "fix the bug":
 1. Check conversation history for error messages - Review recent messages
 2. Search for failing tests - Grep for "failing", "error", "TODO"
@@ -75,7 +75,7 @@ Summarize what you learned:
 **When to use:** Need to understand architecture, find similar implementations, or explore unknown territory
 
 **Approach:**
-```
+```text
 Use Task tool with subagent_type=Explore to:
 - Map codebase structure
 - Find similar implementations
@@ -84,7 +84,7 @@ Use Task tool with subagent_type=Explore to:
 ```
 
 **Example:**
-```
+```bash
 Prompt: "find the bug"
 
 Research:
@@ -116,7 +116,7 @@ Research:
 ```
 
 **Example:**
-```
+```bash
 Prompt: "add tests"
 
 Research:
@@ -148,7 +148,7 @@ pattern: "process\.env|config\.|getConfig"
 ```
 
 **Example:**
-```
+```text
 Prompt: "improve error handling"
 
 Research:
@@ -169,7 +169,7 @@ Research:
 4. Read README.md and architecture docs
 
 **Example:**
-```
+```text
 Prompt: "refactor the API"
 
 Research:
@@ -202,7 +202,7 @@ git diff HEAD~5..HEAD --stat
 ```
 
 **Example:**
-```
+```bash
 Prompt: "fix the recent regression"
 
 Research:
@@ -211,6 +211,48 @@ Research:
 3. Finding: Commit 3 days ago changed auth flow
 4. Pattern: Regression likely in authentication changes
 ```
+
+## Knowledge Base Search (R2R)
+
+### Strategy 6: Semantic Documentation Search (r2r-research)
+
+**When to use:** Need best practices, patterns, or documentation context
+
+R2R provides hybrid semantic search across curated documentation collections.
+
+**Basic usage:**
+```bash
+# Semantic search with auto-collection selection
+r2r-research search "React authentication patterns"
+
+# Search specific collection
+r2r-research search "query optimization" -c db-postgresql
+
+# JSON output for processing
+r2r-research search "error handling" --format json --limit 5
+```
+
+**Collection tiers:**
+- **Tier 1 (Universal):** Programming patterns, Git, testing
+- **Tier 2 (Tech Stack):** `lang-python`, `framework-react`, `db-postgresql`, etc.
+- **Tier 3 (Project):** Project-specific CLAUDE.md, docs/
+
+**Example:**
+```bash
+Prompt: "implement caching"
+
+Research:
+1. r2r-research search "caching strategies patterns"
+2. r2r-research search "Redis Node.js caching" -c tools-redis
+3. Finding: LRU cache, TTL patterns, invalidation strategies
+4. Pattern: Redis for distributed, in-memory for local
+```
+
+**When R2R vs WebSearch:**
+- R2R: Curated documentation, established patterns
+- WebSearch: Current trends, recent changes, news
+
+For detailed R2R patterns, see [r2r-search-strategies.md](r2r-search-strategies.md).
 
 ## Documentation Research
 
@@ -225,7 +267,7 @@ Research:
 6. API documentation (docs/api/)
 
 **Example:**
-```
+```bash
 Prompt: "implement caching"
 
 Research:
@@ -245,7 +287,7 @@ Research:
 3. WebFetch official documentation if needed
 
 **Example:**
-```
+```sql
 Prompt: "update the validation"
 
 Research:
@@ -272,7 +314,7 @@ pattern: "must|require|cannot|constraint"
 ```
 
 **Example:**
-```
+```bash
 Prompt: "modify the database schema"
 
 Research:
@@ -288,7 +330,7 @@ Research:
 **When to use:** Need current approaches, recent changes, industry standards
 
 **Effective queries:**
-```
+```text
 # Framework-specific patterns
 "React authentication best practices 2024"
 "Express.js error handling patterns 2024"
@@ -307,7 +349,7 @@ Research:
 ```
 
 **Example:**
-```
+```bash
 Prompt: "add authentication"
 
 Research:
@@ -323,7 +365,7 @@ Research:
 **When to use:** Need official guidance for frameworks in use
 
 **Common documentation sites:**
-```
+```text
 # JavaScript/TypeScript
 https://developer.mozilla.org/docs/
 https://nodejs.org/docs/
@@ -340,7 +382,7 @@ https://prettier.io/docs/
 ```
 
 **Example:**
-```
+```sql
 Prompt: "update the middleware"
 
 Research:
@@ -355,7 +397,7 @@ Research:
 **When to use:** Implementing well-known patterns
 
 **Queries:**
-```
+```text
 "repository pattern TypeScript example"
 "MVC architecture Node.js best practices"
 "clean architecture Node.js implementation"
@@ -363,7 +405,7 @@ Research:
 ```
 
 **Example:**
-```
+```bash
 Prompt: "refactor data access"
 
 Research:
@@ -388,7 +430,7 @@ Research:
 - Code shown or referenced
 
 **Example:**
-```
+```text
 Recent messages:
 User: "I'm getting TypeError: Cannot read property 'id' of undefined"
 User: "It happens when I click the login button"
@@ -411,7 +453,7 @@ Research:
 - Previous questions show user intent
 
 **Example:**
-```
+```bash
 Message history:
 5 messages ago: "How do I implement caching in Express?"
 3 messages ago: "Should I use Redis or in-memory cache?"
@@ -430,12 +472,12 @@ Research:
 **When to use:** User viewing specific file
 
 **System messages indicate:**
-```
+```text
 [System: User opened src/api/auth.ts]
 ```
 
 **Example:**
-```
+```text
 [System: User opened src/components/LoginForm.tsx]
 User: "refactor this to use hooks"
 
@@ -491,10 +533,16 @@ Research:
 - API references
 - Tutorial content
 
+**r2r-research:**
+- Semantic documentation search
+- Best practices and patterns
+- Framework/library documentation
+- Project-specific knowledge base
+
 ### Multi-Tool Research Patterns
 
 **Pattern 1: Architecture Discovery**
-```
+```text
 1. Read: package.json (understand stack)
 2. Read: README.md (understand project)
 3. Task/Explore: Map architecture
@@ -503,7 +551,7 @@ Research:
 ```
 
 **Pattern 2: Implementation Approach**
-```
+```bash
 1. Grep: Search for existing pattern
 2. Read: Example implementation
 3. WebSearch: Best practices
@@ -512,7 +560,7 @@ Research:
 ```
 
 **Pattern 3: Bug Investigation**
-```
+```bash
 1. Review: Conversation history for errors
 2. Grep: Search for error patterns
 3. Bash: Git log for recent changes
@@ -527,7 +575,7 @@ Research:
 **When:** Simple ambiguity, limited scope
 
 **Example:**
-```
+```bash
 Prompt: "add tests"
 
 Research:
@@ -545,7 +593,7 @@ Findings:
 **When:** Multiple unknowns, need pattern understanding
 
 **Example:**
-```
+```text
 Prompt: "improve error handling"
 
 Research:
@@ -566,7 +614,7 @@ Findings:
 **When:** Major feature, architectural decision, complex implementation
 
 **Example:**
-```
+```bash
 Prompt: "add authentication"
 
 Research:
@@ -590,7 +638,7 @@ Findings:
 
 After research, document findings:
 
-```
+```bash
 ## Research Findings for "[Prompt]"
 
 **What was unclear:**

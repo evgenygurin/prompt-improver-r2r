@@ -41,11 +41,16 @@ Create a dynamic research plan using TodoWrite before asking questions.
    - Grep/Glob for specific patterns, related files
    - Check git log for recent changes
    - Search for errors, failing tests, TODO/FIXME comments
-3. **Gather additional context** as needed:
+3. **Search knowledge base (R2R)** for relevant context:
+   - `r2r-research search "query"` for semantic search across documentation collections
+   - Auto-selects relevant collections (universal, tech-stack, project-specific)
+   - Use `-c collection-id` for specific collection search
+   - Use `--format json` for structured output
+4. **Gather additional context** as needed:
    - Read local documentation files
    - WebFetch for online documentation
    - WebSearch for best practices, common approaches, current information
-4. **Document findings** to ground questions in actual project context
+5. **Document findings** to ground questions in actual project context
 
 **Critical Rules:**
 - NEVER skip research
@@ -53,6 +58,7 @@ Create a dynamic research plan using TodoWrite before asking questions.
 - Questions must be grounded in actual findings, not assumptions or base knowledge
 
 For detailed research strategies, patterns, and examples, see [references/research-strategies.md](references/research-strategies.md).
+For R2R semantic search patterns and collection architecture, see [references/r2r-search-strategies.md](references/r2r-search-strategies.md).
 
 ### Phase 2: Generate Targeted Questions
 
@@ -77,7 +83,7 @@ For question templates, effective patterns, and examples, see [references/questi
 Use the AskUserQuestion tool to present your research-grounded questions.
 
 **AskUserQuestion Format:**
-```
+```bash
 - question: Clear, specific question ending with ?
 - header: Short label (max 12 chars) for UI display
 - multiSelect: false (unless choices aren't mutually exclusive)
