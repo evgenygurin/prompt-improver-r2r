@@ -1,11 +1,11 @@
 {
   "name": "local-dev",
   "owner": {
-    "name": "severity1"
+    "name": "R2R-Proger"
   },
   "plugins": [
     {
-      "name": "prompt-improver",
+      "name": "prompt-improver-r2r",
       "source": "./../../"
     }
   ]
